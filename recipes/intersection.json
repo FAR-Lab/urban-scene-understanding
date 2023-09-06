@@ -1,0 +1,13 @@
+{
+  "recipe_name": "intersection",
+  "ingredients": [
+      {
+          "name": "traffic_light",
+          "min_quantity": 1
+      },
+      {
+          "name": "zebra_crosswalk",
+          "min_quantity": 1
+      }
+  ]
+}
