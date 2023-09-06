@@ -24,22 +24,24 @@ def merge_periods(tuples):
     
     return merged
 
-def parse(source):
+def parse(source, base, TOP_LEVEL_DIR, PROCESSED_SUFFIX):
 
-    footage = cv2.VideoCapture(f"{PROJECT_PATH}/{source}")
+    footage = cv2.VideoCapture(f"{source}")
     num_frames = int(footage.get(cv2.CAP_PROP_FRAME_COUNT))
 
-    #crosswalk_detections = glob.glob(f"{PROJECT_PATH}/scripts/{PROJECT_NAME}/{source}_cdnet/labels/*.txt")
-    #coco_detections = glob.glob(f"{PROJECT_PATH}/scripts/{PROJECT_NAME}/{source}_coco/labels/*.txt")
+    del footage
+
+    #crosswalk_detections = glob.glob(f"{base}/{TOP_LEVEL_DIR}/{os.path.splitext(os.path.basename(source))[0]}_cdnet/labels/*.txt")
+    #coco_detections = glob.glob(f"{base}/{TOP_LEVEL_DIR}/{os.path.splitext(os.path.basename(source))[0]}_coco/labels/*.txt")
 
     crosswalk_detections = [] 
     coco_detections = [] 
 
     for i in range(num_frames): 
-        crosswalk_detections.append(f"{PROJECT_PATH}/scripts/{PROJECT_NAME}/{os.path.splitext(os.path.basename(source))[0]}_cdnet/labels/{os.path.splitext(os.path.basename(source))[0]}_{i}.txt")
-        coco_detections.append(f"{PROJECT_PATH}/scripts/{PROJECT_NAME}/{os.path.splitext(os.path.basename(source))[0]}_coco/labels/{os.path.splitext(os.path.basename(source))[0]}_{i}.txt")
+        crosswalk_detections.append(f"{base}/{TOP_LEVEL_DIR}/{os.path.splitext(os.path.basename(source))[0]}_cdnet/labels/{os.path.splitext(os.path.basename(source))[0]}_{PROCESSED_SUFFIX}_{i}.txt")
+        coco_detections.append(f"{base}/{TOP_LEVEL_DIR}/{os.path.splitext(os.path.basename(source))[0]}_coco/labels/{os.path.splitext(os.path.basename(source))[0]}_{PROCESSED_SUFFIX}_{i}.txt")
 
-    
+
     intersection_frames = np.zeros(num_frames, dtype=bool)
     assert num_frames == len(coco_detections)
     i = 0
