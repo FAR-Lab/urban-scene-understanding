@@ -1,8 +1,19 @@
 from moviepy.editor import VideoFileClip
-import moviepy.video.io.ffmpeg as ffmpeg
+import ffmpeg
 
 import os 
 import fire 
+
+def write_clip(video, output_dir, start_frame, end_frame, i, FRAME_RATE=60):
+        
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
+        start_time = start_frame / FRAME_RATE 
+        end_time = end_frame / FRAME_RATE
+        output_path = f"{output_dir}_intersection_{start_time:.2f}_{end_time:.2f}_{i+1}.mp4"
+        clip = video.subclip(start_time, end_time)
+        clip.write_videofile(output_path, codec='libx264')
 
 def extract_clips(video_path, periods, output_dir, FRAME_RATE=60):
     """Extracts clips from a video based on a list of periods.
@@ -15,18 +26,14 @@ def extract_clips(video_path, periods, output_dir, FRAME_RATE=60):
     Returns:
         None
     """
-    for codec in ffmpeg.list_codecs():
-      print(codec)
-    
-    
-    
-
+    video = VideoFileClip(video_path)
+     
     for i, (start_frame, end_frame) in enumerate(periods):
         start_time = start_frame / FRAME_RATE 
         end_time = end_frame / FRAME_RATE
         output_path = f"{output_dir}_intersection_{start_time:.2f}_{end_time:.2f}_{i+1}.mp4"
-        video = VideoFileClip(video_path).subclip(start_time, end_time)
-        video.write_videofile(output_path, codec='libx264')
+        clip = video.subclip(start_time, end_time)
+        clip.write_videofile(output_path, codec='libx264')
 
 if __name__ == '__main__':
     fire.Fire(extract_clips)
