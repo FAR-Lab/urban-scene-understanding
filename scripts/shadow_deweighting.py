@@ -10,7 +10,7 @@ import copy
 
 sys.path.append('/share/ju/xcpedestrian/urban-scene-understanding/SAMAdapter/models')
 import models as samadapter 
-print(samadapter)
+
 import yaml 
 import matplotlib.pyplot as plt 
 import numpy as np 
