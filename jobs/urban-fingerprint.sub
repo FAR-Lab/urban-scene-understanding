@@ -1,0 +1,24 @@
+#!/bin/bash 
+#SBATCH -J urban-fingerprint
+#SBATCH -o /share/ju/xcpedestrian/run_logs/urban-fingerprint/%j.out
+#SBATCH -e /share/ju/xcpedestrian/run_logs/urban-fingerprint/%j.err
+#SBATCH --mail-type=ALL 
+#SBATCH --mail-user=mwf62@cornell.edu 
+#SBATCH -N 1
+#SBATCH -n 24
+#SBATCH --get-user-env
+#SBATCH --mem=296gb
+#SBATCH --gpus=3
+#SBATCH -t 400:00:00 
+#SBATCH --partition=pierson
+
+
+pwd
+source /home/mwf62/.bashrc
+ 
+conda info --envs
+source activate /share/ju/conda_virtualenvs/urban-scene-understanding
+cd /share/ju/xcpedestrian/urban-scene-understanding/
+
+python detector.py /share/ju/nexar_data/nexar-scraper/2023-08-12
+

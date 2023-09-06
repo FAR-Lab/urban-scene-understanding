@@ -1,0 +1,22 @@
+#!/bin/bash 
+#SBATCH -J detector
+#SBATCH -o /home/mwf62/nexar_log/detector/%j.out 
+#SBATCH -e /home/mwf62/nexar_log/detector/%j.err 
+#SBATCH --mail-type=ALL 
+#SBATCH --mail-user=mwf62@cornell.edu 
+#SBATCH -N 1
+#SBATCH -n 4
+#SBATCH --get-user-env 
+#SBATCH --mem=128gb
+#SBATCH --gpus=1
+#SBATCH -t 400:00:00 
+#SBATCH --partition=pierson
+
+pwd
+source /home/mwf62/.bashrc
+ 
+conda info --envs
+source activate /share/pierson/conda_virtualenvs/policing_env
+cd /share/ju/xcpedestrian/urban-scene-understanding
+
+python detector.py /share/ju/nexar_data/nexar-scraper/2023-08-12
