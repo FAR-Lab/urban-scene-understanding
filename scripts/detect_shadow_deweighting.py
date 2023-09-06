@@ -38,7 +38,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-print(samadapter)
+#print(samadapter)
 
 from torchvision import transforms
 #from shadow_deweighting import * 
@@ -190,7 +190,7 @@ def detect(save_img=False):
                     
                     if save_txt:  # Write to file
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
-                        print(shadow_mask_avg)
+                        #print(shadow_mask_avg)
                         #print(f'{names[int(cls)]} {conf:.2f} {shadow_mask_avg:.2f} {conf - shadow_mask_avg:.2f}')
                         line = (cls, *xywh, conf, shadow_mask_avg, conf - shadow_mask_avg) if opt.save_conf else (cls, *xywh)  # label format
                         with open(txt_path + '.txt', 'a') as f:
@@ -205,7 +205,7 @@ def detect(save_img=False):
                     
 
             # Print time (inference + NMS)
-            print(f'{s}Done. ({(1E3 * (t2 - t1)):.1f}ms) Inference, ({(1E3 * (t3 - t2)):.1f}ms) NMS')
+            #print(f'{s}Done. ({(1E3 * (t2 - t1)):.1f}ms) Inference, ({(1E3 * (t3 - t2)):.1f}ms) NMS')
 
             # Stream results
             if view_img:
